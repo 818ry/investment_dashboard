@@ -89,12 +89,11 @@ body{font-family:var(--font);background:var(--bg2);color:var(--text1);min-height
 .phase-banner{border-radius:var(--rl);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;border:1px solid;}
 .src-link{font-size:11px;color:var(--text2);font-family:var(--mono);text-decoration:none;padding:3px 9px;border:1px solid var(--border);border-radius:var(--r);transition:all .1s;}
 .src-link:hover{background:var(--bg3);color:var(--text1);}
-/* FRED 자동 값 표시 */
-.auto-val{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text1);}
 .auto-tag{font-size:10px;font-family:var(--mono);padding:1px 6px;background:var(--blue-bg);color:var(--blue);border-radius:3px;border:1px solid var(--blue-br);}
+.auto-val{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text1);}
+.last-updated{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:3px;}
 .loading-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text3);animation:pulse 1.2s infinite;}
 @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
-.last-updated{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:3px;}
 .refresh-btn{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);padding:4px 10px;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;background:var(--bg);transition:all .1s;}
 .refresh-btn:hover{background:var(--bg3);}
 select{border:1px solid var(--border);border-radius:var(--r);padding:4px 8px;font-size:12px;color:var(--text1);background:var(--bg);outline:none;cursor:pointer;}
@@ -134,7 +133,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
     <div style="display:flex;align-items:center;gap:10px;">
       <button class="refresh-btn" onclick="loadFREDData()">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.5 6A4.5 4.5 0 1 1 6 1.5"/><polyline points="10.5,1.5 10.5,4.5 7.5,4.5"/></svg>
-        데이터 새로고침
+        새로고침
       </button>
       <div id="top-pill" class="badge b-gray">로딩 중</div>
     </div>
@@ -146,7 +145,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
   <div id="tab-macro">
     <div class="page-title">매크로 신호등</div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
-      <div class="page-desc" style="margin-bottom:0;">FRED API 자동 연동 · VIX·S&P500은 직접 입력</div>
+      <div class="page-desc" style="margin-bottom:0;">FRED 자동 연동 4개 · VIX·S&P500 직접 입력</div>
       <div id="fred-status" style="font-size:11px;color:var(--text3);font-family:var(--mono);">연결 중...</div>
     </div>
 
@@ -175,8 +174,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
           </tr>
         </thead>
         <tbody>
-
-          <!-- S&P500 — 수동 -->
+          <!-- S&P500 수동 -->
           <tr>
             <td>
               <div style="font-weight:500;font-size:13px;">S&P500 고점 대비 낙폭</div>
@@ -192,8 +190,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
             <td><div id="sp500-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>입력 대기</div></td>
             <td style="font-size:12px;color:var(--text2);">–20% = 추가매수 1회차<br>–25% = 추가매수 2회차<br>–30% = 극단 구간</td>
           </tr>
-
-          <!-- VIX — 수동 -->
+          <!-- VIX 수동 -->
           <tr>
             <td>
               <div style="font-weight:500;font-size:13px;">VIX 공포지수</div>
@@ -206,10 +203,9 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
               </div>
             </td>
             <td><div id="vix-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>입력 대기</div></td>
-            <td style="font-size:12px;color:var(--text2);">30+ = 공포<br>40+ = 극단 공포<br>2020 코로나 최고 85<br><a class="src-link" href="https://www.investing.com/indices/volatility-s-p-500" target="_blank" style="margin-top:4px;display:inline-flex;">investing.com →</a></td>
+            <td style="font-size:12px;color:var(--text2);">30+ = 공포 / 40+ = 극단<br>2020 코로나 최고 85<br><a class="src-link" href="https://www.investing.com/indices/volatility-s-p-500" target="_blank" style="margin-top:4px;display:inline-flex;">investing.com →</a></td>
           </tr>
-
-          <!-- 장단기 금리차 — FRED 자동 -->
+          <!-- 장단기 FRED 자동 -->
           <tr>
             <td>
               <div style="font-weight:500;font-size:13px;">장단기 금리차 (10년–2년)</div>
@@ -223,8 +219,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
             <td><div id="yield-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>로딩 중</div></td>
             <td style="font-size:12px;color:var(--text2);">양수 = 정상 / 음수 = 역전<br>역전 후 12~18개월 뒤 침체<br><a class="src-link" href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank" style="margin-top:4px;display:inline-flex;">FRED →</a></td>
           </tr>
-
-          <!-- 신용스프레드 — FRED 자동 -->
+          <!-- 신용스프레드 FRED 자동 -->
           <tr>
             <td>
               <div style="font-weight:500;font-size:13px;">신용스프레드 (HY–IG)</div>
@@ -236,10 +231,9 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
               <div id="spread-updated" class="last-updated"></div>
             </td>
             <td><div id="spread-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>로딩 중</div></td>
-            <td style="font-size:12px;color:var(--text2);">4 미만 = 안정<br>4~6 = 확대 추세<br>6+ = 급격히 확대<br><a class="src-link" href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank" style="margin-top:4px;display:inline-flex;">FRED →</a></td>
+            <td style="font-size:12px;color:var(--text2);">4 미만 = 안정<br>4~6 = 확대 추세 / 6+ = 위험<br><a class="src-link" href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank" style="margin-top:4px;display:inline-flex;">FRED →</a></td>
           </tr>
-
-          <!-- 실업률 — FRED 자동 -->
+          <!-- 실업률 FRED 자동 -->
           <tr>
             <td>
               <div style="font-weight:500;font-size:13px;">미국 실업률</div>
@@ -253,8 +247,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
             <td><div id="unemp-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>로딩 중</div></td>
             <td style="font-size:12px;color:var(--text2);">3개월 연속 상승 = 침체 확인<br><a class="src-link" href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" style="margin-top:4px;display:inline-flex;">BLS →</a></td>
           </tr>
-
-          <!-- 기준금리 — FRED 자동 -->
+          <!-- 기준금리 FRED 자동 -->
           <tr>
             <td>
               <div style="font-weight:500;font-size:13px;">미국 기준금리 (FOMC)</div>
@@ -266,7 +259,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
               <div id="rate-updated" class="last-updated"></div>
             </td>
             <td>
-              <select id="rate-dir" onchange="updateRateNote()" style="font-size:11px;">
+              <select id="rate-dir" onchange="updateRateNote()">
                 <option value="hold">방향: 동결</option>
                 <option value="up">인상 기조</option>
                 <option value="down">인하 기조</option>
@@ -274,7 +267,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
             </td>
             <td id="rate-note" style="font-size:12px;color:var(--text2);">방향 선택 시 해석 표시<br><a class="src-link" href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" style="margin-top:4px;display:inline-flex;">Fed 공식 →</a></td>
           </tr>
-
         </tbody>
       </table>
     </div>
@@ -291,6 +283,11 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
           <tr><td style="font-weight:500;">2022 긴축</td><td style="color:var(--text2);">장단기 역전 + 급격한 금리인상</td><td style="font-family:var(--mono);color:var(--red);">–27%</td><td style="color:var(--text2);">2년</td></tr>
         </tbody>
       </table>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+        <a class="src-link" href="https://fred.stlouisfed.org" target="_blank">FRED</a>
+        <a class="src-link" href="https://www.investing.com/indices/volatility-s-p-500" target="_blank">VIX</a>
+        <a class="src-link" href="https://coinmarketcap.com/charts/" target="_blank">BTC 도미넌스</a>
+      </div>
     </div>
   </div>
 
@@ -413,178 +410,167 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 
 <script>
 const FRED_KEY = '62811fafc08955ac10484ffacacee151';
-const FRED_BASE = 'https://fred.stlouisfed.org/graph/fredgraph.csv';
+
+// FRED API — JSON 방식 (CORS 허용됨)
+async function fetchFRED(series, limit=4) {
+  const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${series}&api_key=${FRED_KEY}&file_type=json&sort_order=desc&limit=${limit}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
+  return data.observations
+    .filter(o => o.value !== '.')
+    .map(o => ({ date: o.date, value: parseFloat(o.value) }))
+    .reverse();
+}
+
+function fmtDate(d) {
+  const dt = new Date(d);
+  return `${dt.getFullYear()}.${dt.getMonth()+1}.${dt.getDate()}`;
+}
+
+function mkBadge(cls, dotColor, txt) {
+  return `<span class="badge ${cls}"><span class="dot" style="background:${dotColor};"></span>${txt}</span>`;
+}
+
+const sigs = {
+  sp500: v => v>-10?['b-green','var(--green)','🟢 정상']:v>-20?['b-yellow','var(--yellow)','🟡 주의']:v>-30?['b-red','var(--red)','🔴 위기']:['b-gray','var(--text2)','⚫ 극단'],
+  vix:   v => v<20?['b-green','var(--green)','🟢 안정']:v<30?['b-yellow','var(--yellow)','🟡 경계']:v<40?['b-red','var(--red)','🔴 공포']:['b-gray','var(--text2)','⚫ 극단 공포'],
+  yield: v => v>0?['b-green','var(--green)','🟢 정상']:v>-.3?['b-yellow','var(--yellow)','🟡 역전 발생']:['b-red','var(--red)','🔴 역전 지속'],
+  spread:v => v<4?['b-green','var(--green)','🟢 안정']:v<6?['b-yellow','var(--yellow)','🟡 확대 추세']:['b-red','var(--red)','🔴 급격히 확대'],
+  unemp: (v, hist) => {
+    if (hist.length >= 3 && v > hist[hist.length-2] && hist[hist.length-2] > hist[hist.length-3])
+      return ['b-red','var(--red)','🔴 3개월 연속 상승'];
+    if (hist.length >= 2 && v > hist[hist.length-2])
+      return ['b-yellow','var(--yellow)','🟡 상승 추세'];
+    return ['b-green','var(--green)','🟢 안정'];
+  }
+};
+
+async function loadFREDData() {
+  document.getElementById('fred-status').textContent = '데이터 불러오는 중...';
+  const errors = [];
+
+  // 장단기 금리차
+  try {
+    const data = await fetchFRED('T10Y2Y', 2);
+    const latest = data[data.length-1];
+    document.getElementById('yield-val').textContent = latest.value.toFixed(2) + '%p';
+    document.getElementById('yield-updated').textContent = '기준일: ' + fmtDate(latest.date);
+    document.getElementById('yield-sig').innerHTML = mkBadge(...sigs.yield(latest.value));
+  } catch(e) { errors.push('장단기금리차'); document.getElementById('yield-val').textContent = '조회 실패'; }
+
+  // 신용스프레드
+  try {
+    const data = await fetchFRED('BAMLH0A0HYM2', 2);
+    const latest = data[data.length-1];
+    document.getElementById('spread-val').textContent = latest.value.toFixed(2) + '%p';
+    document.getElementById('spread-updated').textContent = '기준일: ' + fmtDate(latest.date);
+    document.getElementById('spread-sig').innerHTML = mkBadge(...sigs.spread(latest.value));
+  } catch(e) { errors.push('신용스프레드'); document.getElementById('spread-val').textContent = '조회 실패'; }
+
+  // 실업률
+  try {
+    const data = await fetchFRED('UNRATE', 4);
+    const latest = data[data.length-1];
+    const hist = data.map(d => d.value);
+    document.getElementById('unemp-val').textContent = latest.value.toFixed(1) + '%';
+    document.getElementById('unemp-updated').textContent = '기준일: ' + fmtDate(latest.date);
+    document.getElementById('unemp-sig').innerHTML = mkBadge(...sigs.unemp(latest.value, hist));
+  } catch(e) { errors.push('실업률'); document.getElementById('unemp-val').textContent = '조회 실패'; }
+
+  // 기준금리
+  try {
+    const data = await fetchFRED('FEDFUNDS', 2);
+    const latest = data[data.length-1];
+    document.getElementById('rate-val').textContent = latest.value.toFixed(2) + '%';
+    document.getElementById('rate-updated').textContent = '기준일: ' + fmtDate(latest.date);
+  } catch(e) { errors.push('기준금리'); document.getElementById('rate-val').textContent = '조회 실패'; }
+
+  const t = new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('fred-status').textContent = errors.length === 0
+    ? `✓ ${t} 업데이트`
+    : `일부 오류: ${errors.join(', ')}`;
+}
 
 // Tabs
-function showTab(name,el){
-  ['macro','portfolio','rules','narrative'].forEach(t=>document.getElementById('tab-'+t).style.display='none');
-  document.getElementById('tab-'+name).style.display='block';
-  const titles={macro:'매크로 신호등',portfolio:'포트폴리오 상태',rules:'위기 대응 룰',narrative:'Narrative 트래커'};
-  document.getElementById('topbar-title').textContent=titles[name];
-  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+function showTab(name, el) {
+  ['macro','portfolio','rules','narrative'].forEach(t => document.getElementById('tab-'+t).style.display='none');
+  document.getElementById('tab-'+name).style.display = 'block';
+  const titles = {macro:'매크로 신호등', portfolio:'포트폴리오 상태', rules:'위기 대응 룰', narrative:'Narrative 트래커'};
+  document.getElementById('topbar-title').textContent = titles[name];
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
 }
 
 // Date
-const now=new Date();
-document.getElementById('today-date').textContent=now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0');
-function getNextRebal(){const m=now.getMonth(),y=now.getFullYear();let n;if(m<3)n=new Date(y,3,26);else if(m<9)n=new Date(y,9,25);else n=new Date(y+1,3,26);return'D–'+Math.ceil((n-now)/(864e5));}
-document.getElementById('next-rebal').textContent=getNextRebal();
-document.getElementById('rebal-next').textContent=getNextRebal();
+const now = new Date();
+document.getElementById('today-date').textContent = now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0');
+function getNextRebal() {
+  const m=now.getMonth(), y=now.getFullYear();
+  let n = m<3 ? new Date(y,3,26) : m<9 ? new Date(y,9,25) : new Date(y+1,3,26);
+  return 'D–' + Math.ceil((n-now)/864e5);
+}
+document.getElementById('next-rebal').textContent = getNextRebal();
+document.getElementById('rebal-next').textContent = getNextRebal();
 
-// Badge helper
-function mkBadge(cls,dotColor,txt){return`<span class="badge ${cls}"><span class="dot" style="background:${dotColor};"></span>${txt}</span>`;}
-
-// Signal logic
-const sigs={
-  sp500:v=>v>-10?['b-green','var(--green)','🟢 정상']:v>-20?['b-yellow','var(--yellow)','🟡 주의']:v>-30?['b-red','var(--red)','🔴 위기']:['b-gray','var(--text2)','⚫ 극단'],
-  vix:v=>v<20?['b-green','var(--green)','🟢 안정']:v<30?['b-yellow','var(--yellow)','🟡 경계']:v<40?['b-red','var(--red)','🔴 공포']:['b-gray','var(--text2)','⚫ 극단 공포'],
-  yield:v=>v>0?['b-green','var(--green)','🟢 정상']:v>-.3?['b-yellow','var(--yellow)','🟡 역전 발생']:['b-red','var(--red)','🔴 역전 지속'],
-  spread:v=>v<4?['b-green','var(--green)','🟢 안정']:v<6?['b-yellow','var(--yellow)','🟡 확대 추세']:['b-red','var(--red)','🔴 급격히 확대'],
-  unemp:(v,prev)=>{
-    if(prev&&v>prev[0]&&prev[0]>prev[1])return['b-red','var(--red)','🔴 3개월 연속 상승'];
-    if(prev&&v>prev[0])return['b-yellow','var(--yellow)','🟡 상승 추세'];
-    return['b-green','var(--green)','🟢 안정'];
-  }
-};
-
-// FRED API fetch — CSV 방식 (CORS 허용)
-async function fetchFRED(series, count=4){
-  const url=`${FRED_BASE}?id=${series}&api_key=${FRED_KEY}&vintage_dates=`;
-  // FRED CSV endpoint
-  const apiUrl=`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${series}`;
-  const resp=await fetch(apiUrl);
-  const text=await resp.text();
-  const lines=text.trim().split('\n').filter(l=>!l.startsWith('DATE'));
-  const recent=lines.slice(-count).map(l=>{
-    const[date,val]=l.split(',');
-    return{date:date.trim(),value:parseFloat(val.trim())};
-  }).filter(r=>!isNaN(r.value));
-  return recent;
+// Manual input
+function onManualInput() {
+  const sp = parseFloat(document.getElementById('sp500-in').value);
+  const vx = parseFloat(document.getElementById('vix-in').value);
+  if (!isNaN(sp)) { document.getElementById('sp500-sig').innerHTML = mkBadge(...sigs.sp500(sp)); updatePhase(sp); }
+  if (!isNaN(vx)) { document.getElementById('vix-sig').innerHTML = mkBadge(...sigs.vix(vx)); }
 }
 
-// Format date
-function fmtDate(dateStr){
-  if(!dateStr)return'';
-  const d=new Date(dateStr);
-  return d.getFullYear()+'.'+(d.getMonth()+1)+'.'+d.getDate();
-}
-
-// Store unemployment history
-let unempHistory=[];
-
-async function loadFREDData(){
-  document.getElementById('fred-status').textContent='데이터 불러오는 중...';
-  const errors=[];
-
-  // 장단기 금리차
-  try{
-    const data=await fetchFRED('T10Y2Y',2);
-    if(data.length){
-      const latest=data[data.length-1];
-      document.getElementById('yield-val').textContent=latest.value.toFixed(2)+'%p';
-      document.getElementById('yield-updated').textContent='기준일: '+fmtDate(latest.date);
-      document.getElementById('yield-sig').innerHTML=mkBadge(...sigs.yield(latest.value));
-    }
-  }catch(e){errors.push('장단기금리차');document.getElementById('yield-val').textContent='조회 실패';}
-
-  // 신용스프레드
-  try{
-    const data=await fetchFRED('BAMLH0A0HYM2',2);
-    if(data.length){
-      const latest=data[data.length-1];
-      document.getElementById('spread-val').textContent=latest.value.toFixed(2)+'%p';
-      document.getElementById('spread-updated').textContent='기준일: '+fmtDate(latest.date);
-      document.getElementById('spread-sig').innerHTML=mkBadge(...sigs.spread(latest.value));
-    }
-  }catch(e){errors.push('신용스프레드');document.getElementById('spread-val').textContent='조회 실패';}
-
-  // 실업률
-  try{
-    const data=await fetchFRED('UNRATE',4);
-    if(data.length){
-      const latest=data[data.length-1];
-      unempHistory=data.map(d=>d.value);
-      document.getElementById('unemp-val').textContent=latest.value.toFixed(1)+'%';
-      document.getElementById('unemp-updated').textContent='기준일: '+fmtDate(latest.date);
-      const prev=unempHistory.length>=3?[unempHistory[unempHistory.length-2],unempHistory[unempHistory.length-3]]:null;
-      document.getElementById('unemp-sig').innerHTML=mkBadge(...sigs.unemp(latest.value,prev));
-    }
-  }catch(e){errors.push('실업률');document.getElementById('unemp-val').textContent='조회 실패';}
-
-  // 기준금리 (FEDFUNDS)
-  try{
-    const data=await fetchFRED('FEDFUNDS',2);
-    if(data.length){
-      const latest=data[data.length-1];
-      document.getElementById('rate-val').textContent=latest.value.toFixed(2)+'%';
-      document.getElementById('rate-updated').textContent='기준일: '+fmtDate(latest.date);
-    }
-  }catch(e){errors.push('기준금리');document.getElementById('rate-val').textContent='조회 실패';}
-
-  if(errors.length===0){
-    document.getElementById('fred-status').textContent='✓ '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})+' 업데이트';
-  } else {
-    document.getElementById('fred-status').textContent='일부 오류: '+errors.join(', ');
-  }
-}
-
-// Manual input handler
-function onManualInput(){
-  const sp=parseFloat(document.getElementById('sp500-in').value);
-  const vx=parseFloat(document.getElementById('vix-in').value);
-  if(!isNaN(sp)){document.getElementById('sp500-sig').innerHTML=mkBadge(...sigs.sp500(sp));updatePhase(sp);}
-  if(!isNaN(vx)){document.getElementById('vix-sig').innerHTML=mkBadge(...sigs.vix(vx));}
-}
-
-function updatePhase(sp){
-  const phases={
-    normal:{bg:'var(--green-bg)',br:'var(--green-br)',dc:'var(--green)',lc:'var(--green)',lt:'🟢 평상시',st:'S&P500 고점 대비 –10% 미만 — 정상',ac:'b-green',at:'ETF DCA 유지',nt:'추가 행동 없음'},
-    caution:{bg:'var(--yellow-bg)',br:'var(--yellow-br)',dc:'var(--yellow)',lc:'var(--yellow)',lt:'🟡 주의 구간',st:'S&P500 고점 대비 –10% ~ –20%',ac:'b-yellow',at:'DCA 유지 · 재원 점검',nt:'추가매수 트리거 아님'},
-    crisis:{bg:'var(--red-bg)',br:'var(--red-br)',dc:'var(--red)',lc:'var(--red)',lt:'🔴 위기 구간',st:'추가매수 트리거 발동 — 위기 대응 룰 탭 실행',ac:'b-red',at:'추가매수 600만원 실행',nt:'–20%→300만 / –25%→300만'},
-    extreme:{bg:'var(--gray-bg)',br:'var(--gray-br)',dc:'var(--text2)',lc:'var(--text1)',lt:'⚫ 극단 구간',st:'역사적 최대 할인 구간 — BTC 검토 포함',ac:'b-gray',at:'추가매수 2회차 + BTC 검토',nt:'BTC 30% 이하 매도 → ETF 전환 허용'}
+function updatePhase(sp) {
+  const phases = {
+    normal:  {bg:'var(--green-bg)', br:'var(--green-br)', dc:'var(--green)',  lc:'var(--green)',  lt:'🟢 평상시',    st:'S&P500 고점 대비 –10% 미만 — 정상',              ac:'b-green',  at:'ETF DCA 유지',          nt:'추가 행동 없음'},
+    caution: {bg:'var(--yellow-bg)',br:'var(--yellow-br)',dc:'var(--yellow)', lc:'var(--yellow)', lt:'🟡 주의 구간',  st:'S&P500 고점 대비 –10% ~ –20%',                   ac:'b-yellow', at:'DCA 유지 · 재원 점검',  nt:'추가매수 트리거 아님'},
+    crisis:  {bg:'var(--red-bg)',   br:'var(--red-br)',   dc:'var(--red)',    lc:'var(--red)',    lt:'🔴 위기 구간',  st:'추가매수 트리거 발동 — 위기 대응 룰 탭 실행',     ac:'b-red',    at:'추가매수 600만원 실행', nt:'–20%→300만 / –25%→300만'},
+    extreme: {bg:'var(--gray-bg)',  br:'var(--gray-br)',  dc:'var(--text2)',  lc:'var(--text1)',  lt:'⚫ 극단 구간',  st:'역사적 최대 할인 구간 — BTC 검토 포함',           ac:'b-gray',   at:'추가매수 2회차+BTC 검토',nt:'BTC 30% 이하 매도 허용'}
   };
-  const k=sp>-10?'normal':sp>-20?'caution':sp>-30?'crisis':'extreme';
-  const p=phases[k];
-  const b=document.getElementById('phase-banner');
-  b.style.background=p.bg;b.style.borderColor=p.br;
-  document.getElementById('p-dot').style.background=p.dc;
-  document.getElementById('p-label').style.color=p.lc;document.getElementById('p-label').textContent=p.lt;
-  document.getElementById('p-sub').textContent=p.st;
-  document.getElementById('p-act').className='badge '+p.ac;document.getElementById('p-act').textContent=p.at;
-  document.getElementById('p-note').textContent=p.nt;
-  document.getElementById('top-pill').className='badge '+p.ac;document.getElementById('top-pill').textContent=p.lt;
+  const k = sp>-10?'normal':sp>-20?'caution':sp>-30?'crisis':'extreme';
+  const p = phases[k];
+  const b = document.getElementById('phase-banner');
+  b.style.background = p.bg; b.style.borderColor = p.br;
+  document.getElementById('p-dot').style.background = p.dc;
+  document.getElementById('p-label').style.color = p.lc;
+  document.getElementById('p-label').textContent = p.lt;
+  document.getElementById('p-sub').textContent = p.st;
+  document.getElementById('p-act').className = 'badge '+p.ac;
+  document.getElementById('p-act').textContent = p.at;
+  document.getElementById('p-note').textContent = p.nt;
+  document.getElementById('top-pill').className = 'badge '+p.ac;
+  document.getElementById('top-pill').textContent = p.lt;
 }
 
-function updateRateNote(){
-  const rm={hold:'동결 기조 → 기술·성장주 중립',up:'인상 기조 → 에너지·소재·금융 유리. 성장주 밸류에이션 압박.',down:'인하 기조 → 성장주·기술주 유리. 나스닥 테일윈드.'};
-  document.getElementById('rate-note').textContent=rm[document.getElementById('rate-dir').value];
+function updateRateNote() {
+  const rm = {hold:'동결 기조 → 기술·성장주 중립', up:'인상 기조 → 에너지·소재·금융 유리. 성장주 밸류에이션 압박.', down:'인하 기조 → 성장주·기술주 유리. 나스닥 테일윈드.'};
+  document.getElementById('rate-note').textContent = rm[document.getElementById('rate-dir').value];
 }
 
 // Portfolio
-function updatePortfolio(){
+function updatePortfolio() {
   const e=parseFloat(document.getElementById('etf-amt').value)||0;
   const b=parseFloat(document.getElementById('btc-amt').value)||0;
   const c=parseFloat(document.getElementById('cash-amt').value)||0;
-  const t=e+b+c;if(!t)return;
-  const ep=(e/t*100),bp=(b/t*100);
+  const t=e+b+c; if(!t)return;
+  const ep=(e/t*100), bp=(b/t*100);
   document.getElementById('etf-bar').style.width=ep.toFixed(1)+'%';
   document.getElementById('btc-bar').style.width=bp.toFixed(1)+'%';
   document.getElementById('etf-pct').textContent=ep.toFixed(1)+'%';
   document.getElementById('btc-pct').textContent=bp.toFixed(1)+'%';
-  const eo=ep>=80&&ep<=85,eh=ep>85;
+  const eo=ep>=80&&ep<=85, eh=ep>85;
   document.getElementById('etf-st').textContent=eo?'정상':eh?'과다':'부족';
   document.getElementById('etf-st').className='badge '+(eo?'b-green':eh?'b-red':'b-yellow');
-  const bo=bp>=15&&bp<=20,bh=bp>25;
+  const bo=bp>=15&&bp<=20, bh=bp>25;
   document.getElementById('btc-st').textContent=bo?'정상':bh?'과다':'근접';
   document.getElementById('btc-st').className='badge '+(bo?'b-green':bh?'b-red':'b-yellow');
   const dev=Math.max(Math.abs(ep-82.5),Math.abs(bp-17.5));
-  const rt=document.getElementById('rebal-trig');
-  rt.innerHTML=dev>10?'<span class="badge b-red">리밸런싱 필요</span>':dev>7?'<span class="badge b-yellow">근접 — 모니터링</span>':'<span class="badge b-green">정상 범위</span>';
-  document.getElementById('calc-etf').value=e;updateCalc();
+  document.getElementById('rebal-trig').innerHTML=dev>10?'<span class="badge b-red">리밸런싱 필요</span>':dev>7?'<span class="badge b-yellow">근접 — 모니터링</span>':'<span class="badge b-green">정상 범위</span>';
+  document.getElementById('calc-etf').value=e; updateCalc();
 }
 
-function updateCalc(){
+function updateCalc() {
   const e=parseFloat(document.getElementById('calc-etf').value)||0;
   const t=parseFloat(document.getElementById('calc-target').value)||600;
   if(!e){document.getElementById('calc-pct').textContent='—';return;}
