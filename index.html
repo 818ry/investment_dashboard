@@ -45,11 +45,16 @@ body{font-family:var(--font);background:var(--bg2);color:var(--text1);min-height
 .dot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0;}
 .sig-table{width:100%;border-collapse:collapse;}
 .sig-table th{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;padding:9px 16px;text-align:left;background:var(--bg2);border-bottom:1px solid var(--border);}
-.sig-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.sig-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
 .sig-table tr:last-child td{border-bottom:none;}
 .sig-table tr:hover td{background:var(--bg2);}
-.val-input{border:none;outline:none;font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text1);background:transparent;width:80px;}
+.val-wrap{display:flex;align-items:center;gap:4px;}
+.val-input{border:1px solid var(--border);border-radius:var(--r);outline:none;font-family:var(--mono);font-size:14px;font-weight:500;color:var(--text1);background:var(--bg);width:90px;padding:6px 10px;transition:border-color .15s;}
+.val-input:focus{border-color:var(--blue);}
 .val-input::placeholder{color:var(--text3);}
+.val-unit{font-size:12px;color:var(--text3);}
+.src-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--blue);font-family:var(--mono);text-decoration:none;padding:3px 8px;border:1px solid var(--blue-br);border-radius:var(--r);background:var(--blue-bg);transition:all .1s;margin-top:5px;}
+.src-btn:hover{background:var(--blue-br);}
 .data-table{width:100%;border-collapse:collapse;}
 .data-table th{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;padding:9px 16px;text-align:left;background:var(--bg2);border-bottom:1px solid var(--border);}
 .data-table td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle;}
@@ -83,22 +88,18 @@ body{font-family:var(--font);background:var(--bg2);color:var(--text1);min-height
 .narr-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:16px 20px;margin-bottom:8px;}
 .checklist{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 .check-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2);padding:4px 0;}
-.chk{width:15px;height:15px;border-radius:4px;border:1px solid var(--border2);flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;}
+.chk{width:15px;height:15px;border-radius:4px;border:1px solid var(--border2);flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;transition:all .15s;}
 .chk.g{background:var(--green);border-color:var(--green);}
 .chk.r{background:var(--red);border-color:var(--red);}
 .phase-banner{border-radius:var(--rl);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;border:1px solid;}
-.src-link{font-size:11px;color:var(--text2);font-family:var(--mono);text-decoration:none;padding:3px 9px;border:1px solid var(--border);border-radius:var(--r);transition:all .1s;}
-.src-link:hover{background:var(--bg3);color:var(--text1);}
-.auto-tag{font-size:10px;font-family:var(--mono);padding:1px 6px;background:var(--blue-bg);color:var(--blue);border-radius:3px;border:1px solid var(--blue-br);}
-.auto-val{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text1);}
-.last-updated{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:3px;}
-.loading-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text3);animation:pulse 1.2s infinite;}
-@keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
-.refresh-btn{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);padding:4px 10px;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;background:var(--bg);transition:all .1s;}
-.refresh-btn:hover{background:var(--bg3);}
-select{border:1px solid var(--border);border-radius:var(--r);padding:4px 8px;font-size:12px;color:var(--text1);background:var(--bg);outline:none;cursor:pointer;}
+/* 체크 주기 태그 */
+.freq-tag{font-size:10px;font-family:var(--mono);padding:1px 7px;border-radius:3px;display:inline-block;margin-top:4px;}
+.freq-week{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;}
+.freq-month{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+.freq-quarter{background:#fefce8;color:#854d0e;border:1px solid #fef08a;}
+select{border:1px solid var(--border);border-radius:var(--r);padding:5px 8px;font-size:12px;color:var(--text1);background:var(--bg);outline:none;cursor:pointer;}
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
-@media(max-width:768px){.sidebar{display:none;}.checklist{grid-template-columns:1fr;}.calc-res{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.sidebar{display:none;}.checklist{grid-template-columns:1fr;}.calc-res{grid-template-columns:1fr 1fr;}.sig-table th:nth-child(4),.sig-table td:nth-child(4){display:none;}}
 </style>
 </head>
 <body>
@@ -123,20 +124,14 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
   </div>
   <div class="sb-foot">
     <div style="font-size:11px;color:var(--text3);font-family:var(--mono);" id="today-date"></div>
-    <div style="font-size:11px;color:var(--text3);margin-top:2px;">다음 리밸런싱 <span id="next-rebal" style="color:var(--text2);"></span></div>
+    <div style="font-size:11px;color:var(--text3);margin-top:2px;">다음 리밸런싱 <span id="next-rebal" style="color:var(--text2);font-family:var(--mono);font-weight:500;"></span></div>
   </div>
 </div>
 
 <div class="main">
   <div class="topbar">
     <div style="font-size:14px;font-weight:500;" id="topbar-title">매크로 신호등</div>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <button class="refresh-btn" onclick="loadFREDData()">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.5 6A4.5 4.5 0 1 1 6 1.5"/><polyline points="10.5,1.5 10.5,4.5 7.5,4.5"/></svg>
-        새로고침
-      </button>
-      <div id="top-pill" class="badge b-gray">로딩 중</div>
-    </div>
+    <div id="top-pill" class="badge b-gray">입력 대기</div>
   </div>
 
   <div class="page">
@@ -144,17 +139,14 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
   <!-- TAB: MACRO -->
   <div id="tab-macro">
     <div class="page-title">매크로 신호등</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
-      <div class="page-desc" style="margin-bottom:0;">FRED 자동 연동 4개 · VIX·S&P500 직접 입력</div>
-      <div id="fred-status" style="font-size:11px;color:var(--text3);font-family:var(--mono);">연결 중...</div>
-    </div>
+    <div class="page-desc">수치 확인 후 입력 → 신호 자동 판정 · 링크 클릭으로 출처 바로 이동</div>
 
     <div id="phase-banner" class="phase-banner" style="background:var(--gray-bg);border-color:var(--gray-br);">
       <div style="display:flex;align-items:center;gap:12px;">
         <div id="p-dot" style="width:9px;height:9px;border-radius:50%;background:var(--text3);flex-shrink:0;"></div>
         <div>
-          <div id="p-label" style="font-size:16px;font-weight:600;color:var(--text2);">데이터 로딩 중</div>
-          <div id="p-sub" style="font-size:12px;color:var(--text2);margin-top:2px;">S&P500 낙폭을 입력하면 국면이 판정됩니다</div>
+          <div id="p-label" style="font-size:16px;font-weight:600;color:var(--text2);">S&P500 낙폭을 입력하면 국면이 판정됩니다</div>
+          <div id="p-sub" style="font-size:12px;color:var(--text2);margin-top:2px;">매주 월요일 6개 수치 입력 · 10분 소요</div>
         </div>
       </div>
       <div style="text-align:right;">
@@ -167,113 +159,146 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
       <table class="sig-table">
         <thead>
           <tr>
-            <th style="width:240px;">지표</th>
-            <th style="width:180px;">현재값</th>
-            <th style="width:160px;">신호</th>
-            <th>비고</th>
+            <th style="width:220px;">지표</th>
+            <th style="width:160px;">수치 입력</th>
+            <th style="width:150px;">신호</th>
+            <th>기준 · 출처</th>
           </tr>
         </thead>
         <tbody>
-          <!-- S&P500 수동 -->
+
+          <!-- S&P500 -->
           <tr>
             <td>
-              <div style="font-weight:500;font-size:13px;">S&P500 고점 대비 낙폭</div>
-              <div style="font-size:11px;color:var(--text3);margin-top:2px;">직접 행동 트리거 · 가장 중요</div>
-              <span style="font-size:10px;font-family:var(--mono);padding:1px 6px;background:var(--bg3);border-radius:3px;color:var(--text3);">주 1회 수동입력</span>
+              <div style="font-weight:500;">S&P500 고점 대비 낙폭</div>
+              <div style="font-size:11px;color:var(--red);margin-top:2px;">직접 행동 트리거</div>
+              <span class="freq-tag freq-week">주 1회</span>
             </td>
             <td>
-              <div style="display:flex;align-items:center;gap:4px;">
-                <input type="number" class="val-input" id="sp500-in" placeholder="–3.2" step="0.1" oninput="onManualInput()">
-                <span style="font-size:12px;color:var(--text3);">%</span>
+              <div class="val-wrap">
+                <input type="number" class="val-input" id="sp500-in" placeholder="–3.2" step="0.1" oninput="updateAll()">
+                <span class="val-unit">%</span>
               </div>
+              <a class="src-btn" href="https://www.tradingview.com/symbols/SP-500/" target="_blank">TradingView →</a>
             </td>
             <td><div id="sp500-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>입력 대기</div></td>
-            <td style="font-size:12px;color:var(--text2);">–20% = 추가매수 1회차<br>–25% = 추가매수 2회차<br>–30% = 극단 구간</td>
+            <td style="font-size:12px;color:var(--text2);">–10% = 주의<br>–20% = 추가매수 1회차<br>–25% = 추가매수 2회차<br>–30% = 극단</td>
           </tr>
-          <!-- VIX 수동 -->
+
+          <!-- VIX -->
           <tr>
             <td>
-              <div style="font-weight:500;font-size:13px;">VIX 공포지수</div>
-              <div style="font-size:11px;color:var(--text3);margin-top:2px;">시장 패닉 수준 측정</div>
-              <span style="font-size:10px;font-family:var(--mono);padding:1px 6px;background:var(--bg3);border-radius:3px;color:var(--text3);">주 1회 수동입력</span>
+              <div style="font-weight:500;">VIX 공포지수</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;">시장 패닉 수준</div>
+              <span class="freq-tag freq-week">주 1회</span>
             </td>
             <td>
-              <div style="display:flex;align-items:center;gap:4px;">
-                <input type="number" class="val-input" id="vix-in" placeholder="18" step="0.1" oninput="onManualInput()">
+              <div class="val-wrap">
+                <input type="number" class="val-input" id="vix-in" placeholder="18" step="0.1" oninput="updateAll()">
               </div>
+              <a class="src-btn" href="https://www.investing.com/indices/volatility-s-p-500" target="_blank">investing.com →</a>
             </td>
             <td><div id="vix-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>입력 대기</div></td>
-            <td style="font-size:12px;color:var(--text2);">30+ = 공포 / 40+ = 극단<br>2020 코로나 최고 85<br><a class="src-link" href="https://www.investing.com/indices/volatility-s-p-500" target="_blank" style="margin-top:4px;display:inline-flex;">investing.com →</a></td>
+            <td style="font-size:12px;color:var(--text2);">20 미만 = 안정<br>30+ = 공포<br>40+ = 극단 공포<br>코로나 최고 85</td>
           </tr>
-          <!-- 장단기 FRED 자동 -->
+
+          <!-- 장단기 금리차 -->
           <tr>
             <td>
-              <div style="font-weight:500;font-size:13px;">장단기 금리차 (10년–2년)</div>
+              <div style="font-weight:500;">장단기 금리차 (10년–2년)</div>
               <div style="font-size:11px;color:var(--red);margin-top:2px;">⚠ 역전 해소 시점이 더 위험</div>
-              <span class="auto-tag">FRED 자동</span>
+              <span class="freq-tag freq-quarter">분기 1회</span>
             </td>
             <td>
-              <div id="yield-val" class="auto-val"><span class="loading-dot"></span></div>
-              <div id="yield-updated" class="last-updated"></div>
+              <div class="val-wrap">
+                <input type="number" class="val-input" id="yield-in" placeholder="0.25" step="0.01" oninput="updateAll()">
+                <span class="val-unit">%p</span>
+              </div>
+              <a class="src-btn" href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">FRED →</a>
             </td>
-            <td><div id="yield-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>로딩 중</div></td>
-            <td style="font-size:12px;color:var(--text2);">양수 = 정상 / 음수 = 역전<br>역전 후 12~18개월 뒤 침체<br><a class="src-link" href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank" style="margin-top:4px;display:inline-flex;">FRED →</a></td>
+            <td><div id="yield-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>입력 대기</div></td>
+            <td style="font-size:12px;color:var(--text2);">양수 = 정상<br>음수 = 역전 발생<br>역전 후 12~18개월 뒤 침체<br>역전 해소 = 실제 침체 시작</td>
           </tr>
-          <!-- 신용스프레드 FRED 자동 -->
+
+          <!-- 신용스프레드 -->
           <tr>
             <td>
-              <div style="font-weight:500;font-size:13px;">신용스프레드 (HY–IG)</div>
-              <div style="font-size:11px;color:var(--text3);margin-top:2px;">주가보다 먼저 움직이는 선행지표</div>
-              <span class="auto-tag">FRED 자동</span>
+              <div style="font-weight:500;">신용스프레드 (HY–IG)</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;">주가보다 먼저 움직임</div>
+              <span class="freq-tag freq-month">월 1회</span>
             </td>
             <td>
-              <div id="spread-val" class="auto-val"><span class="loading-dot"></span></div>
-              <div id="spread-updated" class="last-updated"></div>
+              <div class="val-wrap">
+                <input type="number" class="val-input" id="spread-in" placeholder="3.2" step="0.01" oninput="updateAll()">
+                <span class="val-unit">%p</span>
+              </div>
+              <a class="src-btn" href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank">FRED →</a>
             </td>
-            <td><div id="spread-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>로딩 중</div></td>
-            <td style="font-size:12px;color:var(--text2);">4 미만 = 안정<br>4~6 = 확대 추세 / 6+ = 위험<br><a class="src-link" href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank" style="margin-top:4px;display:inline-flex;">FRED →</a></td>
+            <td><div id="spread-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>입력 대기</div></td>
+            <td style="font-size:12px;color:var(--text2);">4 미만 = 안정<br>4~6 = 확대 추세<br>6+ = 급격히 확대</td>
           </tr>
-          <!-- 실업률 FRED 자동 -->
+
+          <!-- 실업률 -->
           <tr>
             <td>
-              <div style="font-weight:500;font-size:13px;">미국 실업률</div>
-              <div style="font-size:11px;color:var(--text3);margin-top:2px;">경기 후행지표 · 실제 침체 확인용</div>
-              <span class="auto-tag">FRED 자동</span>
+              <div style="font-weight:500;">미국 실업률</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;">경기 후행지표</div>
+              <span class="freq-tag freq-month">월 1회</span>
             </td>
             <td>
-              <div id="unemp-val" class="auto-val"><span class="loading-dot"></span></div>
-              <div id="unemp-updated" class="last-updated"></div>
+              <div class="val-wrap">
+                <input type="number" class="val-input" id="unemp-in" placeholder="3.9" step="0.1" oninput="updateAll()" style="width:75px;">
+                <span class="val-unit">%</span>
+              </div>
+              <div style="margin-top:6px;">
+                <select id="unemp-trend" onchange="updateAll()" style="font-size:11px;width:130px;">
+                  <option value="stable">추세: 안정</option>
+                  <option value="up1">1개월 상승</option>
+                  <option value="up2">2개월 연속</option>
+                  <option value="up3">3개월 연속 ⚠</option>
+                </select>
+              </div>
+              <a class="src-btn" href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank">BLS →</a>
             </td>
-            <td><div id="unemp-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>로딩 중</div></td>
-            <td style="font-size:12px;color:var(--text2);">3개월 연속 상승 = 침체 확인<br><a class="src-link" href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" style="margin-top:4px;display:inline-flex;">BLS →</a></td>
+            <td><div id="unemp-sig" class="badge b-gray"><span class="dot" style="background:var(--text3);"></span>입력 대기</div></td>
+            <td style="font-size:12px;color:var(--text2);">3개월 연속 상승<br>= 침체 확인 신호<br>(후행지표)</td>
           </tr>
-          <!-- 기준금리 FRED 자동 -->
+
+          <!-- 기준금리 -->
           <tr>
             <td>
-              <div style="font-weight:500;font-size:13px;">미국 기준금리 (FOMC)</div>
-              <div style="font-size:11px;color:var(--text3);margin-top:2px;">전체 자산 밸류에이션 기준점</div>
-              <span class="auto-tag">FRED 자동</span>
+              <div style="font-weight:500;">미국 기준금리 (FOMC)</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;">밸류에이션 기준점</div>
+              <span class="freq-tag freq-quarter">연 8회</span>
             </td>
             <td>
-              <div id="rate-val" class="auto-val"><span class="loading-dot"></span></div>
-              <div id="rate-updated" class="last-updated"></div>
+              <div class="val-wrap">
+                <input type="number" class="val-input" id="rate-in" placeholder="5.25" step="0.25" oninput="updateAll()" style="width:75px;">
+                <span class="val-unit">%</span>
+              </div>
+              <div style="margin-top:6px;">
+                <select id="rate-dir" onchange="updateRateNote()" style="font-size:11px;width:130px;">
+                  <option value="hold">방향: 동결</option>
+                  <option value="up">인상 기조</option>
+                  <option value="down">인하 기조</option>
+                </select>
+              </div>
+              <a class="src-btn" href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank">Fed 공식 →</a>
             </td>
-            <td>
-              <select id="rate-dir" onchange="updateRateNote()">
-                <option value="hold">방향: 동결</option>
-                <option value="up">인상 기조</option>
-                <option value="down">인하 기조</option>
-              </select>
-            </td>
-            <td id="rate-note" style="font-size:12px;color:var(--text2);">방향 선택 시 해석 표시<br><a class="src-link" href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" style="margin-top:4px;display:inline-flex;">Fed 공식 →</a></td>
+            <td>—</td>
+            <td id="rate-note" style="font-size:12px;color:var(--text2);">방향 선택 시 해석 표시</td>
           </tr>
+
         </tbody>
       </table>
     </div>
 
+    <!-- 역사적 패턴 -->
     <div class="card" style="padding:20px;">
-      <div style="font-size:13px;font-weight:600;margin-bottom:12px;">역사적 위기 패턴 <span style="font-size:11px;font-weight:400;color:var(--text3);background:var(--bg3);padding:2px 8px;border-radius:20px;margin-left:6px;">신호 순서 참고</span></div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:12px;">장단기 역전 → 신용스프레드 확대 → 실업률 상승 순 진행이 일반적. 코로나(2020)는 예외 — VIX 급등은 항상 봐야 함.</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px;">역사적 위기 패턴
+        <span style="font-size:11px;font-weight:400;color:var(--text3);background:var(--bg3);padding:2px 8px;border-radius:20px;margin-left:6px;">신호 순서 참고</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:12px;">장단기 역전 → 신용스프레드 확대 → 실업률 상승 순으로 진행이 일반적. 코로나(2020)는 예외 — VIX 급등은 항상 봐야 함.</div>
       <table class="data-table">
         <thead><tr><th>시기</th><th>패턴</th><th>낙폭</th><th>회복</th></tr></thead>
         <tbody>
@@ -283,11 +308,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
           <tr><td style="font-weight:500;">2022 긴축</td><td style="color:var(--text2);">장단기 역전 + 급격한 금리인상</td><td style="font-family:var(--mono);color:var(--red);">–27%</td><td style="color:var(--text2);">2년</td></tr>
         </tbody>
       </table>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
-        <a class="src-link" href="https://fred.stlouisfed.org" target="_blank">FRED</a>
-        <a class="src-link" href="https://www.investing.com/indices/volatility-s-p-500" target="_blank">VIX</a>
-        <a class="src-link" href="https://coinmarketcap.com/charts/" target="_blank">BTC 도미넌스</a>
-      </div>
     </div>
   </div>
 
@@ -386,7 +406,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
               </div>
             </td>
             <td>
-              <div class="reframe"><div style="font-size:11px;font-weight:500;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">BTC 매도 프레이밍</div>
+              <div class="reframe">
+                <div style="font-size:11px;font-weight:500;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">BTC 매도 프레이밍</div>
                 <div style="font-size:13px;color:var(--text2);line-height:1.7;">이것은 <strong style="color:var(--text1);">손절이 아니다.</strong><br>역사적 최대 할인 구간의 ETF를 사기 위한 <strong style="color:var(--text1);">재원 조달</strong>이다.<br><br>나머지 BTC 70%는 반등에 그대로 참여한다.<br>BTC를 팔아 ETF를 사는 것은 <strong style="color:var(--text1);">두 자산 모두에서 이기는 전략</strong>이다.</div>
               </div>
             </td>
@@ -409,160 +430,90 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 </div>
 
 <script>
-const FRED_KEY = '62811fafc08955ac10484ffacacee151';
-
-// FRED API — JSON 방식 (CORS 허용됨)
-async function fetchFRED(series, limit=4) {
-  const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${series}&api_key=${FRED_KEY}&file_type=json&sort_order=desc&limit=${limit}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const data = await res.json();
-  return data.observations
-    .filter(o => o.value !== '.')
-    .map(o => ({ date: o.date, value: parseFloat(o.value) }))
-    .reverse();
-}
-
-function fmtDate(d) {
-  const dt = new Date(d);
-  return `${dt.getFullYear()}.${dt.getMonth()+1}.${dt.getDate()}`;
-}
-
-function mkBadge(cls, dotColor, txt) {
-  return `<span class="badge ${cls}"><span class="dot" style="background:${dotColor};"></span>${txt}</span>`;
-}
-
-const sigs = {
-  sp500: v => v>-10?['b-green','var(--green)','🟢 정상']:v>-20?['b-yellow','var(--yellow)','🟡 주의']:v>-30?['b-red','var(--red)','🔴 위기']:['b-gray','var(--text2)','⚫ 극단'],
-  vix:   v => v<20?['b-green','var(--green)','🟢 안정']:v<30?['b-yellow','var(--yellow)','🟡 경계']:v<40?['b-red','var(--red)','🔴 공포']:['b-gray','var(--text2)','⚫ 극단 공포'],
-  yield: v => v>0?['b-green','var(--green)','🟢 정상']:v>-.3?['b-yellow','var(--yellow)','🟡 역전 발생']:['b-red','var(--red)','🔴 역전 지속'],
-  spread:v => v<4?['b-green','var(--green)','🟢 안정']:v<6?['b-yellow','var(--yellow)','🟡 확대 추세']:['b-red','var(--red)','🔴 급격히 확대'],
-  unemp: (v, hist) => {
-    if (hist.length >= 3 && v > hist[hist.length-2] && hist[hist.length-2] > hist[hist.length-3])
-      return ['b-red','var(--red)','🔴 3개월 연속 상승'];
-    if (hist.length >= 2 && v > hist[hist.length-2])
-      return ['b-yellow','var(--yellow)','🟡 상승 추세'];
-    return ['b-green','var(--green)','🟢 안정'];
-  }
-};
-
-async function loadFREDData() {
-  document.getElementById('fred-status').textContent = '데이터 불러오는 중...';
-  const errors = [];
-
-  // 장단기 금리차
-  try {
-    const data = await fetchFRED('T10Y2Y', 2);
-    const latest = data[data.length-1];
-    document.getElementById('yield-val').textContent = latest.value.toFixed(2) + '%p';
-    document.getElementById('yield-updated').textContent = '기준일: ' + fmtDate(latest.date);
-    document.getElementById('yield-sig').innerHTML = mkBadge(...sigs.yield(latest.value));
-  } catch(e) { errors.push('장단기금리차'); document.getElementById('yield-val').textContent = '조회 실패'; }
-
-  // 신용스프레드
-  try {
-    const data = await fetchFRED('BAMLH0A0HYM2', 2);
-    const latest = data[data.length-1];
-    document.getElementById('spread-val').textContent = latest.value.toFixed(2) + '%p';
-    document.getElementById('spread-updated').textContent = '기준일: ' + fmtDate(latest.date);
-    document.getElementById('spread-sig').innerHTML = mkBadge(...sigs.spread(latest.value));
-  } catch(e) { errors.push('신용스프레드'); document.getElementById('spread-val').textContent = '조회 실패'; }
-
-  // 실업률
-  try {
-    const data = await fetchFRED('UNRATE', 4);
-    const latest = data[data.length-1];
-    const hist = data.map(d => d.value);
-    document.getElementById('unemp-val').textContent = latest.value.toFixed(1) + '%';
-    document.getElementById('unemp-updated').textContent = '기준일: ' + fmtDate(latest.date);
-    document.getElementById('unemp-sig').innerHTML = mkBadge(...sigs.unemp(latest.value, hist));
-  } catch(e) { errors.push('실업률'); document.getElementById('unemp-val').textContent = '조회 실패'; }
-
-  // 기준금리
-  try {
-    const data = await fetchFRED('FEDFUNDS', 2);
-    const latest = data[data.length-1];
-    document.getElementById('rate-val').textContent = latest.value.toFixed(2) + '%';
-    document.getElementById('rate-updated').textContent = '기준일: ' + fmtDate(latest.date);
-  } catch(e) { errors.push('기준금리'); document.getElementById('rate-val').textContent = '조회 실패'; }
-
-  const t = new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'});
-  document.getElementById('fred-status').textContent = errors.length === 0
-    ? `✓ ${t} 업데이트`
-    : `일부 오류: ${errors.join(', ')}`;
-}
-
 // Tabs
-function showTab(name, el) {
-  ['macro','portfolio','rules','narrative'].forEach(t => document.getElementById('tab-'+t).style.display='none');
-  document.getElementById('tab-'+name).style.display = 'block';
-  const titles = {macro:'매크로 신호등', portfolio:'포트폴리오 상태', rules:'위기 대응 룰', narrative:'Narrative 트래커'};
-  document.getElementById('topbar-title').textContent = titles[name];
-  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+function showTab(name,el){
+  ['macro','portfolio','rules','narrative'].forEach(t=>document.getElementById('tab-'+t).style.display='none');
+  document.getElementById('tab-'+name).style.display='block';
+  const titles={macro:'매크로 신호등',portfolio:'포트폴리오 상태',rules:'위기 대응 룰',narrative:'Narrative 트래커'};
+  document.getElementById('topbar-title').textContent=titles[name];
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
   el.classList.add('active');
 }
 
 // Date
-const now = new Date();
-document.getElementById('today-date').textContent = now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0');
-function getNextRebal() {
-  const m=now.getMonth(), y=now.getFullYear();
-  let n = m<3 ? new Date(y,3,26) : m<9 ? new Date(y,9,25) : new Date(y+1,3,26);
-  return 'D–' + Math.ceil((n-now)/864e5);
-}
-document.getElementById('next-rebal').textContent = getNextRebal();
-document.getElementById('rebal-next').textContent = getNextRebal();
+const now=new Date();
+document.getElementById('today-date').textContent=now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0');
+function getNextRebal(){const m=now.getMonth(),y=now.getFullYear();let n=m<3?new Date(y,3,26):m<9?new Date(y,9,25):new Date(y+1,3,26);return'D–'+Math.ceil((n-now)/864e5);}
+const nr=getNextRebal();
+document.getElementById('next-rebal').textContent=nr;
+document.getElementById('rebal-next').textContent=nr;
 
-// Manual input
-function onManualInput() {
-  const sp = parseFloat(document.getElementById('sp500-in').value);
-  const vx = parseFloat(document.getElementById('vix-in').value);
-  if (!isNaN(sp)) { document.getElementById('sp500-sig').innerHTML = mkBadge(...sigs.sp500(sp)); updatePhase(sp); }
-  if (!isNaN(vx)) { document.getElementById('vix-sig').innerHTML = mkBadge(...sigs.vix(vx)); }
+// Badge helper
+function mkBadge(cls,dc,txt){return`<span class="badge ${cls}"><span class="dot" style="background:${dc};"></span>${txt}</span>`;}
+
+// Signal logic
+const sigs={
+  sp500:v=>v>-10?['b-green','var(--green)','🟢 정상']:v>-20?['b-yellow','var(--yellow)','🟡 주의']:v>-30?['b-red','var(--red)','🔴 위기']:['b-gray','var(--text2)','⚫ 극단'],
+  vix:  v=>v<20?['b-green','var(--green)','🟢 안정']:v<30?['b-yellow','var(--yellow)','🟡 경계']:v<40?['b-red','var(--red)','🔴 공포']:['b-gray','var(--text2)','⚫ 극단 공포'],
+  yield:v=>v>0?['b-green','var(--green)','🟢 정상']:v>-.3?['b-yellow','var(--yellow)','🟡 역전 발생']:['b-red','var(--red)','🔴 역전 지속'],
+  spread:v=>v<4?['b-green','var(--green)','🟢 안정']:v<6?['b-yellow','var(--yellow)','🟡 확대 추세']:['b-red','var(--red)','🔴 급격히 확대'],
+  unemp:t=>({stable:['b-green','var(--green)','🟢 안정'],up1:['b-yellow','var(--yellow)','🟡 1개월 상승'],up2:['b-yellow','var(--yellow)','🟡 2개월 연속'],up3:['b-red','var(--red)','🔴 3개월 연속']})[t]
+};
+
+function updateAll(){
+  const sp=parseFloat(document.getElementById('sp500-in').value);
+  const vx=parseFloat(document.getElementById('vix-in').value);
+  const yd=parseFloat(document.getElementById('yield-in').value);
+  const sp2=parseFloat(document.getElementById('spread-in').value);
+  const ut=document.getElementById('unemp-trend').value;
+
+  if(!isNaN(sp)){document.getElementById('sp500-sig').innerHTML=mkBadge(...sigs.sp500(sp));updatePhase(sp);}
+  if(!isNaN(vx)){document.getElementById('vix-sig').innerHTML=mkBadge(...sigs.vix(vx));}
+  if(!isNaN(yd)){document.getElementById('yield-sig').innerHTML=mkBadge(...sigs.yield(yd));}
+  if(!isNaN(sp2)){document.getElementById('spread-sig').innerHTML=mkBadge(...sigs.spread(sp2));}
+  document.getElementById('unemp-sig').innerHTML=mkBadge(...sigs.unemp(ut));
+  updateRateNote();
 }
 
-function updatePhase(sp) {
-  const phases = {
-    normal:  {bg:'var(--green-bg)', br:'var(--green-br)', dc:'var(--green)',  lc:'var(--green)',  lt:'🟢 평상시',    st:'S&P500 고점 대비 –10% 미만 — 정상',              ac:'b-green',  at:'ETF DCA 유지',          nt:'추가 행동 없음'},
-    caution: {bg:'var(--yellow-bg)',br:'var(--yellow-br)',dc:'var(--yellow)', lc:'var(--yellow)', lt:'🟡 주의 구간',  st:'S&P500 고점 대비 –10% ~ –20%',                   ac:'b-yellow', at:'DCA 유지 · 재원 점검',  nt:'추가매수 트리거 아님'},
-    crisis:  {bg:'var(--red-bg)',   br:'var(--red-br)',   dc:'var(--red)',    lc:'var(--red)',    lt:'🔴 위기 구간',  st:'추가매수 트리거 발동 — 위기 대응 룰 탭 실행',     ac:'b-red',    at:'추가매수 600만원 실행', nt:'–20%→300만 / –25%→300만'},
-    extreme: {bg:'var(--gray-bg)',  br:'var(--gray-br)',  dc:'var(--text2)',  lc:'var(--text1)',  lt:'⚫ 극단 구간',  st:'역사적 최대 할인 구간 — BTC 검토 포함',           ac:'b-gray',   at:'추가매수 2회차+BTC 검토',nt:'BTC 30% 이하 매도 허용'}
+function updatePhase(sp){
+  const P={
+    normal: {bg:'var(--green-bg)', br:'var(--green-br)', dc:'var(--green)',  lc:'var(--green)',  lt:'🟢 평상시',   st:'S&P500 고점 대비 –10% 미만 — 정상',           ac:'b-green', at:'ETF DCA 유지',         nt:'추가 행동 없음'},
+    caution:{bg:'var(--yellow-bg)',br:'var(--yellow-br)',dc:'var(--yellow)', lc:'var(--yellow)', lt:'🟡 주의 구간', st:'S&P500 고점 대비 –10% ~ –20%',                 ac:'b-yellow',at:'DCA 유지 · 재원 점검', nt:'추가매수 트리거 아님'},
+    crisis: {bg:'var(--red-bg)',   br:'var(--red-br)',   dc:'var(--red)',    lc:'var(--red)',    lt:'🔴 위기 구간', st:'추가매수 트리거 발동 — 위기 대응 룰 탭 확인',   ac:'b-red',   at:'추가매수 600만원 실행',nt:'–20%→300만 / –25%→300만'},
+    extreme:{bg:'var(--gray-bg)',  br:'var(--gray-br)',  dc:'var(--text2)',  lc:'var(--text1)',  lt:'⚫ 극단 구간', st:'역사적 최대 할인 구간 — BTC 매도 검토 포함',    ac:'b-gray',  at:'추가매수 2회차+BTC',   nt:'BTC 30% 이하 매도 허용'}
   };
-  const k = sp>-10?'normal':sp>-20?'caution':sp>-30?'crisis':'extreme';
-  const p = phases[k];
-  const b = document.getElementById('phase-banner');
-  b.style.background = p.bg; b.style.borderColor = p.br;
-  document.getElementById('p-dot').style.background = p.dc;
-  document.getElementById('p-label').style.color = p.lc;
-  document.getElementById('p-label').textContent = p.lt;
-  document.getElementById('p-sub').textContent = p.st;
-  document.getElementById('p-act').className = 'badge '+p.ac;
-  document.getElementById('p-act').textContent = p.at;
-  document.getElementById('p-note').textContent = p.nt;
-  document.getElementById('top-pill').className = 'badge '+p.ac;
-  document.getElementById('top-pill').textContent = p.lt;
+  const k=sp>-10?'normal':sp>-20?'caution':sp>-30?'crisis':'extreme';
+  const p=P[k];
+  const b=document.getElementById('phase-banner');
+  b.style.background=p.bg; b.style.borderColor=p.br;
+  document.getElementById('p-dot').style.background=p.dc;
+  document.getElementById('p-label').style.color=p.lc; document.getElementById('p-label').textContent=p.lt;
+  document.getElementById('p-sub').textContent=p.st;
+  document.getElementById('p-act').className='badge '+p.ac; document.getElementById('p-act').textContent=p.at;
+  document.getElementById('p-note').textContent=p.nt;
+  document.getElementById('top-pill').className='badge '+p.ac; document.getElementById('top-pill').textContent=p.lt;
 }
 
-function updateRateNote() {
-  const rm = {hold:'동결 기조 → 기술·성장주 중립', up:'인상 기조 → 에너지·소재·금융 유리. 성장주 밸류에이션 압박.', down:'인하 기조 → 성장주·기술주 유리. 나스닥 테일윈드.'};
-  document.getElementById('rate-note').textContent = rm[document.getElementById('rate-dir').value];
+function updateRateNote(){
+  const rm={hold:'동결 기조 → 기술·성장주 중립',up:'인상 기조 → 에너지·소재·금융 유리. 성장주 밸류에이션 압박.',down:'인하 기조 → 성장주·기술주 유리. 나스닥 테일윈드.'};
+  document.getElementById('rate-note').textContent=rm[document.getElementById('rate-dir').value];
 }
 
 // Portfolio
-function updatePortfolio() {
+function updatePortfolio(){
   const e=parseFloat(document.getElementById('etf-amt').value)||0;
   const b=parseFloat(document.getElementById('btc-amt').value)||0;
   const c=parseFloat(document.getElementById('cash-amt').value)||0;
   const t=e+b+c; if(!t)return;
-  const ep=(e/t*100), bp=(b/t*100);
+  const ep=e/t*100, bp=b/t*100;
   document.getElementById('etf-bar').style.width=ep.toFixed(1)+'%';
   document.getElementById('btc-bar').style.width=bp.toFixed(1)+'%';
   document.getElementById('etf-pct').textContent=ep.toFixed(1)+'%';
   document.getElementById('btc-pct').textContent=bp.toFixed(1)+'%';
-  const eo=ep>=80&&ep<=85, eh=ep>85;
+  const eo=ep>=80&&ep<=85,eh=ep>85;
   document.getElementById('etf-st').textContent=eo?'정상':eh?'과다':'부족';
   document.getElementById('etf-st').className='badge '+(eo?'b-green':eh?'b-red':'b-yellow');
-  const bo=bp>=15&&bp<=20, bh=bp>25;
+  const bo=bp>=15&&bp<=20,bh=bp>25;
   document.getElementById('btc-st').textContent=bo?'정상':bh?'과다':'근접';
   document.getElementById('btc-st').className='badge '+(bo?'b-green':bh?'b-red':'b-yellow');
   const dev=Math.max(Math.abs(ep-82.5),Math.abs(bp-17.5));
@@ -570,7 +521,7 @@ function updatePortfolio() {
   document.getElementById('calc-etf').value=e; updateCalc();
 }
 
-function updateCalc() {
+function updateCalc(){
   const e=parseFloat(document.getElementById('calc-etf').value)||0;
   const t=parseFloat(document.getElementById('calc-target').value)||600;
   if(!e){document.getElementById('calc-pct').textContent='—';return;}
@@ -581,12 +532,17 @@ function updateCalc() {
 
 // Narrative
 const NR=[
-  {id:'ai',title:'AI 전력 인프라 (변압기·ESS·송전망)',stage:'2~3단계',sc:'b-yellow'},
-  {id:'nuclear',title:'핵에너지 부활 (SMR·우라늄)',stage:'2~3단계',sc:'b-yellow'},
-  {id:'bio',title:'바이오/장수 (노화 역전)',stage:'1~2단계',sc:'b-green'},
-  {id:'robot',title:'로봇 정밀부품 (감속기·액추에이터)',stage:'1~2단계',sc:'b-green'}
+  {id:'ai',    title:'AI 전력 인프라 (변압기·ESS·송전망)',      stage:'2~3단계',sc:'b-yellow'},
+  {id:'nuclear',title:'핵에너지 부활 (SMR·우라늄)',              stage:'2~3단계',sc:'b-yellow'},
+  {id:'bio',   title:'바이오/장수 (노화 역전)',                  stage:'1~2단계',sc:'b-green'},
+  {id:'robot', title:'로봇 정밀부품 (감속기·액추에이터)',        stage:'1~2단계',sc:'b-green'}
 ];
-const CKS=[{t:'주요 관련주 1년 전 대비 2배 이상 올랐나?',d:true},{t:'유튜브/뉴스에서 매일 다루고 있나?',d:true},{t:'실제 매출/실적이 따라오고 있나?',d:false},{t:'10년 후에도 이 산업이 존재할 것 같나?',d:false}];
+const CKS=[
+  {t:'주요 관련주 1년 전 대비 2배 이상 올랐나?',d:true},
+  {t:'유튜브/뉴스에서 매일 다루고 있나?',d:true},
+  {t:'실제 매출/실적이 따라오고 있나?',d:false},
+  {t:'10년 후에도 이 산업이 존재할 것 같나?',d:false}
+];
 const NS={};NR.forEach(n=>{NS[n.id]={v:[false,false,false,false],date:''};});
 
 function renderNarr(){
@@ -597,19 +553,35 @@ function renderNarr(){
     const sc=score===4?'var(--green)':score>=2?'var(--yellow)':'var(--text3)';
     const vd=score===4?'진입 검토 가능':score>=2?'추적 중':'아직 이른 단계';
     const div=document.createElement('div');div.className='narr-card';
-    div.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div style="font-size:14px;font-weight:500;">${n.title}</div><div style="display:flex;align-items:center;gap:8px;"><span class="badge ${n.sc}">${n.stage}</span><span style="font-family:var(--mono);font-size:14px;font-weight:600;color:${sc};">${score}/4</span></div></div>
-    <div style="font-size:12px;font-weight:500;color:${sc};margin-bottom:10px;">${vd}</div>
-    <div class="checklist">${CKS.map((ck,i)=>{const on=st.v[i];const good=ck.d?!on:on;return`<div class="check-item"><div class="chk ${on?(ck.d?'r':'g'):''}" onclick="toggleN('${n.id}',${i})">${on?'✓':''}</div><span style="color:${good?'var(--text1)':'var(--text2)'};">${ck.t}${ck.d?' <span style="font-size:10px;color:var(--red);">[역방향]</span>':''}</span></div>`;}).join('')}</div>
-    <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px;color:var(--text3);">마지막 확인: <input type="date" style="border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-size:11px;font-family:var(--mono);color:var(--text2);background:var(--bg);outline:none;" value="${st.date}" onchange="NS['${n.id}'].date=this.value"></div>`;
+    div.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-size:14px;font-weight:500;">${n.title}</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="badge ${n.sc}">${n.stage}</span>
+          <span style="font-family:var(--mono);font-size:14px;font-weight:600;color:${sc};">${score}/4</span>
+        </div>
+      </div>
+      <div style="font-size:12px;font-weight:500;color:${sc};margin-bottom:10px;">${vd}</div>
+      <div class="checklist">
+        ${CKS.map((ck,i)=>{
+          const on=st.v[i];const good=ck.d?!on:on;
+          return`<div class="check-item">
+            <div class="chk ${on?(ck.d?'r':'g'):''}" onclick="toggleN('${n.id}',${i})">${on?'✓':''}</div>
+            <span style="color:${good?'var(--text1)':'var(--text2)'};">${ck.t}${ck.d?` <span style="font-size:10px;color:var(--red);">[역방향]</span>`:''}</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px;color:var(--text3);">
+        마지막 확인:
+        <input type="date" style="border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-size:11px;font-family:var(--mono);color:var(--text2);background:var(--bg);outline:none;" value="${st.date}" onchange="NS['${n.id}'].date=this.value">
+      </div>`;
     c.appendChild(div);
   });
 }
 function toggleN(id,i){NS[id].v[i]=!NS[id].v[i];renderNarr();}
 
-// Init
 renderNarr();
 updateCalc();
-loadFREDData();
 </script>
 </body>
 </html>
